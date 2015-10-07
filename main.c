@@ -1,16 +1,16 @@
-//PROGRAMM FOR BUTTONs, BUZZER, RELAY AND LED
+
 //
 // PROCESSOR : PIC16F873
 // CLOCK	 : 20MHz, EXTERNAL
 
 
-#include <stdio.h>
-#include <stdint.h>
-#include	<pic.h>
-#include "delay.h"
-#include "lcddriver.h"
-#include "buttons.h"
-#include "beeps.h"
+#include  <stdio.h>
+#include  <stdint.h>
+#include  <pic16f873.h>
+#include  "delay.h"
+#include  "lcddriver.h"
+#include  "buttons.h"
+#include  "beeps.h"
 
 #pragma config FOSC = HS        // Oscillator Selection bits (HS oscillator)
 #pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled)
@@ -147,8 +147,6 @@ void main_display()
 
 // main function
 void main( void ) {
-
-  di();               // Disable interrupt
 
 	TRISAbits.TRISA1 = 0;	// RELAY pin as output
   TRISAbits.TRISA4 = 0; // freq pin as output.

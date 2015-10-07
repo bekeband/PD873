@@ -1,9 +1,9 @@
 __stringtab: STRING, 2048 0 16
 __stringdata: STRING, 2094 0 38
-_InitButtons: CODE, 2016 0 2
-_menu_display: CODE, 1997 0 11
+_InitButtons: CODE, 2015 0 2
+_menu_display: CODE, 1996 0 11
 _dpowers: STRING, 2076 0 10
-_main: CODE, 1901 0 96
+_main: CODE, 1901 0 95
 _ButtonScan: CODE, 1310 0 97
 _main_display: CODE, 17 0 32
 _DelayMs: CODE, 1454 0 12
@@ -23,4 +23,4 @@ _Delay: CODE, 1466 0 19
 ___wmul: CODE, 1232 0 25
 _E_Pulse: CODE, 1446 0 8
 ___bmul: CODE, 1181 0 15
-Total: 1860
+Total: 1859
