@@ -3,14 +3,16 @@
 // PROCESSOR : PIC16F873
 // CLOCK	 : 20MHz, EXTERNAL
 
-
 #include  <stdio.h>
 #include  <stdint.h>
 #include  <pic16f873.h>
+#include  "main.h"
 #include  "delay.h"
 #include  "lcddriver.h"
 #include  "buttons.h"
 #include  "beeps.h"
+#include  "maindisplay.h"
+#include  "menudisplay.h"
 
 #pragma config FOSC = HS        // Oscillator Selection bits (HS oscillator)
 #pragma config WDTE = OFF       // Watchdog Timer Enable bit (WDT disabled)
@@ -20,45 +22,6 @@
 #pragma config LVP = OFF        // Low Voltage In-Circuit Serial Programming Enable bit (RB3 is digital I/O, HV on MCLR must be used for programming)
 #pragma config CPD = OFF        // Data EE Memory Code Protection (Code Protection off)
 #pragma config WRT = ON         // FLASH Program Memory Write Enable (Unprotected program memory may be written to by EECON control)
-
-#define	LED			PORTBbits.RB4
-#define	RELAY		PORTAbits.RA1
-
-#define VERH  2
-#define VERL  1
-
-#define TMR0DATA  (0x080)
-#define TMR2DATA  (0x06)  // 256 - 250 5M/16 = 312500 / 250 = 1250/s
-
-#define MAIN_DISPLAY  56
-#define MENU_DISPLAY  65
-
-typedef struct {
-  union {
-    unsigned DISPLAY_REFRESH: 1;
-    unsigned AD_REFRESH:      1;
-  };
-  union {
-    uint8_t STATUS_BYTE;
-  };
-} s_status;
-
-typedef struct  {
-  uint8_t serial_speed;
-  uint8_t button_beep;
-  uint16_t display_refresh_time;
-}s_setting_datas;
-
-typedef struct s_analog_data {
-  uint8_t input_type; // 0 = 4 - 20 mA, 1 = 0- 20 mA
-  float min_val;
-  float max_val;
-  uint16_t min_eng;
-  uint16_t max_eng;
-  uint8_t input_dim;
-  uint8_t average;
-  float summa;
-} s_analog_datas;
 
 unsigned  char but;
 
@@ -116,34 +79,6 @@ void interrupt isr(void)
     ADCON0bits.GO = 1;  /* Restart A/D conversion. */
   }
 };
-
-void menu_display()
-{
-  switch (but)
-  {
-    case BUT_ES_OFF:
-      MAIN_STATE = MAIN_DISPLAY;
-      break;
-  }
-}
-
-void main_display()
-{
-  if (PROGRAM_STATUS.AD_REFRESH)
-  {
-    sprintf(DPBUFFER, "%6i", AD_VALUE);
-    LCDSendCmd(DD_RAM_ADDR2);
-    LCDSendStr(DPBUFFER);
-    PROGRAM_STATUS.DISPLAY_REFRESH = 0;
-    PROGRAM_STATUS.AD_REFRESH = 0;
-  }
-  switch (but)
-  {
-    case BUT_OK_OFF:
-      MAIN_STATE = MENU_DISPLAY;
-      break;
-  }
-}
 
 // main function
 void main( void ) {
