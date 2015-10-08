@@ -165,15 +165,15 @@ void main( void ) {
         break;
 
 /* ------------------------ MENU DISPLAY -----------------------------------*/
-
+        static int r_c = 0;
     case MENU_DISPLAY:
 
       if (PROGRAM_STATUS.MUST_REDRAW)
       {
 //        char* actual_menu_title = s_menu_item[ACTUAL_MENU].title;
         LCDSendCmd(CLR_DISP);
-        LCDSendCmd(DD_RAM_ADDR + 5); //(16 - (strlen(menu_items[ACTUAL_MENU].title) / 2)));
-        sprintf(DPBUFFER, "%s", menu_items[ACTUAL_MENU].title);
+        LCDSendCmd(DD_RAM_ADDR + 2); // (16 - (strlen(menu_items[ACTUAL_MENU].title) / 2)));
+        sprintf(DPBUFFER, "%s %i", menu_items[ACTUAL_MENU].title, r_c++);
         LCDSendStr(DPBUFFER);
         PROGRAM_STATUS.MUST_REDRAW = 0;
       }
