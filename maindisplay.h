@@ -18,7 +18,7 @@ extern s_status PROGRAM_STATUS;    // Program status. and flags.
 extern unsigned  char but;
 extern unsigned int MAIN_STATE;
 extern unsigned int AD_VALUE;
-extern unsigned char DPBUFFER[20];
+//extern char DPBUFFER[];
 
 void main_display();
 

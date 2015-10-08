@@ -14,15 +14,7 @@ extern "C" {
 
 #include "main.h"
 
-extern unsigned  char but;
-extern unsigned int MAIN_STATE;
-extern s_status PROGRAM_STATUS;    // Program status. and flags.
-extern unsigned char DPBUFFER[20];
-extern unsigned int MAIN_STATE;
-
-void menu_display();
-
-typedef struct {
+typedef struct s_menu_item {
   char* title;
   union {
     unsigned next: 1;
@@ -31,7 +23,7 @@ typedef struct {
   union {
   uint8_t features;
   };
-}s_menu_item;
+};
 
 #ifdef	__cplusplus
 }
